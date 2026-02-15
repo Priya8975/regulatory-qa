@@ -222,6 +222,16 @@ docker-compose up --build
 
 ---
 
+## Live Demo
+
+- **Frontend:** [https://regulatory-qa.vercel.app](https://regulatory-qa.vercel.app)
+- **Backend API:** [https://regulatory-qa-backend.onrender.com](https://regulatory-qa-backend.onrender.com)
+- **API Docs:** [https://regulatory-qa-backend.onrender.com/docs](https://regulatory-qa-backend.onrender.com/docs)
+
+> Note: The backend runs on Render's free tier and may take ~30 seconds to wake up on the first request after inactivity.
+
+---
+
 ## Sample Questions
 
 **Lookup**

@@ -24,7 +24,14 @@ from agents.state import AgentState
 load_dotenv()
 
 # Use gpt-4o-mini for verification — it's a structured evaluation task
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = None
+
+
+def get_llm():
+    global _llm
+    if _llm is None:
+        _llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    return _llm
 
 VERIFICATION_PROMPT = """You are a fact-checker for regulatory compliance content.
 
@@ -112,7 +119,7 @@ def compliance_checker_agent(state: AgentState) -> AgentState:
     )
 
     # Call the LLM
-    response = llm.invoke(prompt)
+    response = get_llm().invoke(prompt)
 
     # Parse the JSON response
     verification = parse_verification_response(response.content)

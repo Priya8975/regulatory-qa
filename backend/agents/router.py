@@ -19,7 +19,14 @@ load_dotenv()
 # - Classification is a simple task, doesn't need the full gpt-4o
 # - gpt-4o-mini is ~20x cheaper and much faster
 # - Accuracy is more than sufficient for 4-way classification
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+_llm = None
+
+
+def get_llm():
+    global _llm
+    if _llm is None:
+        _llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    return _llm
 
 # All regulations we know about. Used to detect which ones are mentioned.
 KNOWN_REGULATIONS = [
@@ -94,7 +101,7 @@ def router_agent(state: AgentState) -> AgentState:
 
     # Step 1: Classify the query type using the LLM
     prompt = CLASSIFICATION_PROMPT.format(query=query)
-    response = llm.invoke(prompt)
+    response = get_llm().invoke(prompt)
     query_type = response.content.strip().upper()
 
     # Validate — if the LLM returns something unexpected, default to EXPLAIN

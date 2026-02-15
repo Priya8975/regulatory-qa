@@ -17,7 +17,14 @@ load_dotenv()
 
 # We use gpt-4o here (not mini) because answer quality matters.
 # This is the user-facing output — it needs to be accurate and well-written.
-llm = ChatOpenAI(model="gpt-4o", temperature=0)
+_llm = None
+
+
+def get_llm():
+    global _llm
+    if _llm is None:
+        _llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    return _llm
 
 SYSTEM_PROMPT = """You are a regulatory compliance expert specializing in AI and model risk management.
 
@@ -93,7 +100,7 @@ def synthesizer_agent(state: AgentState) -> AgentState:
         {"role": "user", "content": user_message},
     ]
 
-    response = llm.invoke(messages)
+    response = get_llm().invoke(messages)
     state["answer"] = response.content
 
     return state

@@ -88,11 +88,30 @@ html, body {
 
   .confidence-container > div {
     padding: 4px 8px;
-    gap: 6px;
-    font-size: 11px;
+    gap: 4px;
+  }
+
+  /* Hide verbose labels on mobile, keep dot + percentage */
+  .confidence-container span[style*="font-size: 12px"] {
+    font-size: 10px !important;
   }
 
   .chat-messages {
     -webkit-overflow-scrolling: touch;
+    padding: 12px !important;
+  }
+
+  /* Compact chat input on mobile */
+  .chat-input-container {
+    padding: 10px 12px !important;
+  }
+
+  .chat-input-container input {
+    font-size: 16px !important;
+    padding: 10px 12px !important;
+  }
+
+  .chat-input-container button {
+    padding: 10px 16px !important;
   }
 }

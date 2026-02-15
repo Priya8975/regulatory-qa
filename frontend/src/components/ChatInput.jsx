@@ -40,7 +40,7 @@ function ChatInput({ onSubmit, isLoading }) {
   };
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container} className="chat-input-container">
       <input
         ref={inputRef}
         type="text"
@@ -83,7 +83,7 @@ const styles = {
   input: {
     flex: 1,
     padding: "12px 16px",
-    fontSize: "14px",
+    fontSize: "16px",
     backgroundColor: "#2a2a3e",
     border: "1px solid #444",
     borderRadius: "8px",

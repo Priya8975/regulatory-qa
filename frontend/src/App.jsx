@@ -82,7 +82,7 @@ function App() {
   return (
     <div style={styles.app}>
       {/* Header */}
-      <header style={styles.header}>
+      <header style={styles.header} className="app-header">
         <div style={styles.headerLeft}>
           <h1 style={styles.title} className="header-title">Regulatory Q&A</h1>
           <span

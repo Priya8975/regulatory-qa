@@ -78,8 +78,18 @@ html, body {
     display: flex !important;
   }
 
+  .app-header {
+    padding: 8px 12px !important;
+    gap: 8px;
+  }
+
   .header-title {
     font-size: 15px !important;
+  }
+
+  .source-toggle {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
   }
 
   .confidence-container {
@@ -91,9 +101,13 @@ html, body {
     gap: 4px;
   }
 
-  /* Hide verbose labels on mobile, keep dot + percentage */
-  .confidence-container span[style*="font-size: 12px"] {
-    font-size: 10px !important;
+  /* On mobile: hide "High Confidence" label and query type, show only dot + % */
+  .confidence-label {
+    display: none !important;
+  }
+
+  .confidence-query-type {
+    display: none !important;
   }
 
   .chat-messages {

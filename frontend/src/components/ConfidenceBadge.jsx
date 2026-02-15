@@ -29,10 +29,10 @@ function ConfidenceBadge({ confidence, queryType }) {
     <div style={styles.container}>
       <div style={{ ...styles.dot, backgroundColor: color }} />
       <div style={styles.info}>
-        <span style={{ ...styles.label, color }}>{label} Confidence</span>
+        <span className="confidence-label" style={{ ...styles.label, color }}>{label} Confidence</span>
         <span style={styles.percentage}>{percentage}%</span>
       </div>
-      {queryType && <span style={styles.queryType}>{queryType}</span>}
+      {queryType && <span className="confidence-query-type" style={styles.queryType}>{queryType}</span>}
     </div>
   );
 }

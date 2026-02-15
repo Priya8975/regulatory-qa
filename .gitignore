@@ -27,8 +27,8 @@ frontend/dist/
 .DS_Store
 Thumbs.db
 
-# Data (large PDFs)
-data/*.pdf
+# Data (large PDFs — uncomment to exclude)
+# data/*.pdf
 
 # Logs
 *.log

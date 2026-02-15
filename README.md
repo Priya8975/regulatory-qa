@@ -131,7 +131,7 @@ regulatory-qa/
 │   │   └── main.jsx
 │   ├── package.json
 │   └── Dockerfile
-├── data/                           # Regulatory PDFs (gitignored)
+├── data/                           # Regulatory PDFs
 ├── docker-compose.yml
 ├── .gitignore
 └── README.md
@@ -327,7 +327,6 @@ The GitHub Actions pipeline runs on every push and pull request to `main`:
 - Add support for additional regulations (EU AI Act, Basel III/IV, SOX)
 - Implement conversational memory for multi-turn follow-up questions
 - Add user authentication and role-based access
-- Deploy to cloud (AWS/Azure) with Terraform
 - Fine-tune embeddings on regulatory corpus for better retrieval
 - Add a feedback loop where users can rate answer quality
 

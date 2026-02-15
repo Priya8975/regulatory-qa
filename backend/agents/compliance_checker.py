@@ -16,10 +16,13 @@ Output includes:
 """
 
 import json
+import logging
 
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from agents.state import AgentState
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -91,7 +94,7 @@ def parse_verification_response(response_text: str) -> dict:
     try:
         return json.loads(text)
     except json.JSONDecodeError:
-        # If parsing fails, return a safe default
+        logger.warning("Failed to parse verification JSON: %s", text[:200])
         return {
             "claims": [],
             "confidence": 0.5,

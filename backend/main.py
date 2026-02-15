@@ -12,6 +12,8 @@ Run with:
   uvicorn main:app --reload --port 8000
 """
 
+import os
+
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -29,19 +31,19 @@ app = FastAPI(
 )
 
 # CORS (Cross-Origin Resource Sharing) middleware.
-# Without this, the React frontend (running on localhost:5173)
-# would be BLOCKED from calling our API (running on localhost:8000).
-# Browsers enforce "same-origin policy" — requests from one domain
-# to another are blocked unless the server explicitly allows it.
+# Without this, the React frontend (running on a different port/domain)
+# would be BLOCKED from calling our API.
+# Set CORS_ORIGINS env var as comma-separated URLs for production.
+_default_origins = ["http://localhost:5173", "http://localhost:3000"]
+_cors_origins = os.getenv("CORS_ORIGINS")
+allowed_origins = [o.strip() for o in _cors_origins.split(",")] if _cors_origins else _default_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",   # React dev server (Vite)
-        "http://localhost:3000",   # React in Docker
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],   # Allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],   # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 

@@ -9,9 +9,13 @@ and determines:
 This information helps the Retriever agent decide how to search.
 """
 
+import logging
+
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from agents.state import AgentState
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -107,6 +111,7 @@ def router_agent(state: AgentState) -> AgentState:
     # Validate — if the LLM returns something unexpected, default to EXPLAIN
     valid_types = {"LOOKUP", "COMPARE", "CHECKLIST", "EXPLAIN"}
     if query_type not in valid_types:
+        logger.warning("LLM returned unexpected query type '%s', defaulting to EXPLAIN", query_type)
         query_type = "EXPLAIN"
 
     # Step 2: Detect which regulations are mentioned (no LLM needed, just keywords)

@@ -10,6 +10,8 @@
 # Stage 1: Build
 FROM node:20-alpine AS build
 WORKDIR /app
+ARG VITE_API_BASE=http://localhost:8000
+ENV VITE_API_BASE=$VITE_API_BASE
 COPY package*.json ./
 RUN npm ci
 COPY . .

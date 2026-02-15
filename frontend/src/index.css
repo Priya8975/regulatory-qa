@@ -83,7 +83,13 @@ html, body {
   }
 
   .confidence-container {
-    display: none !important;
+    display: flex !important;
+  }
+
+  .confidence-container > div {
+    padding: 4px 8px;
+    gap: 6px;
+    font-size: 11px;
   }
 
   .chat-messages {

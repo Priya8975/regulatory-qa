@@ -140,13 +140,14 @@ function App() {
 
 const styles = {
   app: {
-    height: "100vh",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     backgroundColor: "#16161e",
     color: "#e0e0e0",
     fontFamily:
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    overflow: "hidden",
   },
   header: {
     display: "flex",
@@ -197,6 +198,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     borderRight: "1px solid #333",
+    minHeight: 0,
   },
   sourceSection: {
     flex: 3,

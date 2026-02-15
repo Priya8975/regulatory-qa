@@ -43,7 +43,7 @@ function ChatWindow({ messages, isLoading }) {
   }
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container} className="chat-messages">
       {messages.map((msg, index) => (
         <div
           key={index}
@@ -123,6 +123,8 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "12px",
+    minHeight: 0,
+    WebkitOverflowScrolling: "touch",
   },
   emptyState: {
     flex: 1,
@@ -168,11 +170,13 @@ const styles = {
     display: "flex",
   },
   bubble: {
-    maxWidth: "80%",
+    maxWidth: "min(80%, 600px)",
     padding: "12px 16px",
     borderRadius: "12px",
     fontSize: "14px",
     lineHeight: "1.6",
+    wordBreak: "break-word",
+    overflowWrap: "break-word",
   },
   userBubble: {
     backgroundColor: "#6366f1",

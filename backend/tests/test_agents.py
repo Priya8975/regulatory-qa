@@ -57,11 +57,11 @@ class TestRouterAgent:
             "retry_count": 0,
         }
 
-    @patch("agents.router.llm")
-    def test_classifies_lookup(self, mock_llm):
+    @patch("agents.router.get_llm")
+    def test_classifies_lookup(self, mock_get_llm):
         mock_response = MagicMock()
         mock_response.content = "LOOKUP"
-        mock_llm.invoke.return_value = mock_response
+        mock_get_llm.return_value.invoke.return_value = mock_response
 
         state = self._make_state("What does SR 11-7 say about validation?")
         result = router_agent(state)
@@ -69,11 +69,11 @@ class TestRouterAgent:
         assert result["query_type"] == "LOOKUP"
         assert "SR 11-7" in result["target_regulations"]
 
-    @patch("agents.router.llm")
-    def test_classifies_compare(self, mock_llm):
+    @patch("agents.router.get_llm")
+    def test_classifies_compare(self, mock_get_llm):
         mock_response = MagicMock()
         mock_response.content = "COMPARE"
-        mock_llm.invoke.return_value = mock_response
+        mock_get_llm.return_value.invoke.return_value = mock_response
 
         state = self._make_state("How do SR 11-7 and NIST differ?")
         result = router_agent(state)
@@ -81,11 +81,11 @@ class TestRouterAgent:
         assert result["query_type"] == "COMPARE"
         assert len(result["target_regulations"]) == 2
 
-    @patch("agents.router.llm")
-    def test_defaults_to_explain_on_invalid(self, mock_llm):
+    @patch("agents.router.get_llm")
+    def test_defaults_to_explain_on_invalid(self, mock_get_llm):
         mock_response = MagicMock()
         mock_response.content = "INVALID_TYPE"
-        mock_llm.invoke.return_value = mock_response
+        mock_get_llm.return_value.invoke.return_value = mock_response
 
         state = self._make_state("Some random question")
         result = router_agent(state)

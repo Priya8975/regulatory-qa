@@ -35,6 +35,7 @@ function App() {
   const [queryType, setQueryType] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [backendStatus, setBackendStatus] = useState("checking");
+  const [showSources, setShowSources] = useState(false);
 
   // Check if backend is running when the app loads
   useEffect(() => {
@@ -83,7 +84,7 @@ function App() {
       {/* Header */}
       <header style={styles.header}>
         <div style={styles.headerLeft}>
-          <h1 style={styles.title}>Regulatory Q&A</h1>
+          <h1 style={styles.title} className="header-title">Regulatory Q&A</h1>
           <span
             style={{
               ...styles.status,
@@ -93,19 +94,43 @@ function App() {
             {backendStatus === "connected" ? "Connected" : backendStatus === "checking" ? "Connecting..." : "Disconnected"}
           </span>
         </div>
-        <ConfidenceBadge confidence={confidence} queryType={queryType} />
+        <div style={styles.headerRight}>
+          {/* Sources toggle button — visible on mobile only */}
+          <button
+            className="source-toggle"
+            style={styles.sourceToggle}
+            onClick={() => setShowSources(!showSources)}
+          >
+            Sources {sources.length > 0 ? `(${sources.length})` : ""}
+          </button>
+          <div className="confidence-container">
+            <ConfidenceBadge confidence={confidence} queryType={queryType} />
+          </div>
+        </div>
       </header>
 
       {/* Main content area */}
-      <div style={styles.main}>
+      <div style={styles.main} className="app-main">
         {/* Left: Chat */}
-        <div style={styles.chatSection}>
+        <div style={styles.chatSection} className="chat-section">
           <ChatWindow messages={messages} isLoading={isLoading} />
           <ChatInput onSubmit={handleSubmit} isLoading={isLoading} />
         </div>
 
         {/* Right: Sources */}
-        <div style={styles.sourceSection}>
+        <div
+          style={styles.sourceSection}
+          className={`source-section ${showSources ? "visible" : ""}`}
+        >
+          {/* Close button for mobile overlay */}
+          {showSources && (
+            <button
+              style={styles.closeButton}
+              onClick={() => setShowSources(false)}
+            >
+              Close
+            </button>
+          )}
           <SourcePanel sources={sources} />
         </div>
       </div>
@@ -136,6 +161,11 @@ const styles = {
     alignItems: "center",
     gap: "12px",
   },
+  headerRight: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+  },
   title: {
     fontSize: "18px",
     fontWeight: 700,
@@ -144,6 +174,18 @@ const styles = {
   status: {
     fontSize: "11px",
     fontWeight: 500,
+  },
+  sourceToggle: {
+    display: "none",
+    alignItems: "center",
+    padding: "6px 12px",
+    fontSize: "12px",
+    fontWeight: 600,
+    backgroundColor: "#6366f1",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
   },
   main: {
     flex: 1,
@@ -159,6 +201,17 @@ const styles = {
   sourceSection: {
     flex: 3,
     overflow: "hidden",
+  },
+  closeButton: {
+    display: "block",
+    width: "100%",
+    padding: "12px",
+    fontSize: "14px",
+    fontWeight: 600,
+    backgroundColor: "#6366f1",
+    color: "#fff",
+    border: "none",
+    cursor: "pointer",
   },
 };
 

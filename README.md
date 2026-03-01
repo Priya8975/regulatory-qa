@@ -14,38 +14,23 @@ Financial institutions and insurance companies must comply with a growing number
 
 ## Architecture
 
-```
-┌──────────────────────────────────────────────┐
-│              React Frontend                   │
-│       (Chat UI + Sources + Confidence)        │
-└───────────────────┬──────────────────────────┘
-                    │
-                    ▼
-┌──────────────────────────────────────────────┐
-│              FastAPI Backend                  │
-└───────────────────┬──────────────────────────┘
-                    │
-                    ▼
-┌──────────────────────────────────────────────┐
-│          LangGraph Orchestrator              │
-│                                              │
-│  ┌──────────┐  ┌──────────┐  ┌───────────┐  │
-│  │  Router   │→│Retriever │→│Synthesizer │  │
-│  │  Agent    │  │  Agent   │  │   Agent    │  │
-│  └──────────┘  └──────────┘  └─────┬─────┘  │
-│                                    │         │
-│                             ┌──────▼──────┐  │
-│                             │ Compliance  │  │
-│                             │  Checker    │  │
-│                             └─────────────┘  │
-└───────────────────┬──────────────────────────┘
-                    │
-         ┌──────────┴──────────┐
-         ▼                     ▼
-┌──────────────┐     ┌────────────────┐
-│   ChromaDB   │     │   LangSmith    │
-│ Vector Store │     │ Observability  │
-└──────────────┘     └────────────────┘
+```mermaid
+flowchart TD
+    FE["React Frontend\n(Chat UI + Sources + Confidence)"]
+    BE["FastAPI Backend"]
+
+    FE --> BE
+    BE --> LG
+
+    subgraph LG ["LangGraph Orchestrator"]
+        direction LR
+        R["Router\nAgent"] --> RET["Retriever\nAgent"]
+        RET --> S["Synthesizer\nAgent"]
+        S --> CC["Compliance\nChecker"]
+    end
+
+    LG --> CH["ChromaDB\nVector Store"]
+    LG --> LS["LangSmith\nObservability"]
 ```
 
 ---
